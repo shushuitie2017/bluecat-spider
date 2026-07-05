@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#05070c" />
+    <meta name="description" content="一只纯数学驱动的自稳定程序化蜘蛛，能在任意地形上行走：8 条腿用闭式逆运动学（IK）实时解算，身体随坡度墙面倾斜，还能起跳扒住墙壁——无动画、无骨骼、无物理引擎，每帧只靠算。基于 Three.js。" />
+    <title>蓝猫蜘蛛 · 程序化 IK 蜘蛛</title>
+
+    <!-- 社交分享（Open Graph + Twitter） -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="蓝猫蜘蛛 · 程序化 IK 蜘蛛" />
+    <meta property="og:description" content="纯数学驱动的自稳定蜘蛛：闭式 IK 八足、可弯折的分节身体、能扒墙的起跳。无动画、无骨骼、无物理引擎。" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="蓝猫蜘蛛 · 程序化 IK 蜘蛛" />
+    <meta name="twitter:description" content="纯数学驱动的自稳定蜘蛛：闭式 IK 八足、可弯折的分节身体、能扒墙的起跳。" />
+
+    <link rel="stylesheet" href="./src/ui/styles.css" />
+  </head>
+  <body>
+    <!-- 渲染器 canvas 挂载点 -->
+    <div id="app"></div>
+
+    <!-- 抬头显示：标题 + 实时读数（帧率 / 速度 / 地面等级） -->
+    <div id="hud">
+      <div id="title">蓝猫 <span>·</span> 蜘蛛</div>
+      <div id="stats"><span id="fps">--</span> 帧<br />速度 <b id="spd">0.0</b><br /><i id="grade">平地</i></div>
+    </div>
+    <button id="reset">重置</button>
+    <div id="hint"></div>
+
+    <!-- 触屏控制（仅在粗指针设备显示） -->
+    <div id="joy"></div><div id="knob"></div>
+    <div id="sprint">加速</div>
+    <div id="jump">跳跃</div>
+
+    <!-- 实时调参面板（滑块在 main.js 里生成） -->
+    <div id="panel">
+      <div id="panelHead"><span>调参</span><span id="panelTog">&ndash;</span></div>
+      <div id="panelBody"><div id="sliders"></div></div>
+    </div>
+
+    <!-- 致命错误横幅 -->
+    <div id="err"></div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

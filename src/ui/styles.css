@@ -1,0 +1,91 @@
+:root {
+  --cyan: #22d3ee; --mag: #ff3bd4; --ink: #cfe9f0; --bg: #05070c;
+  --line: rgba(34, 211, 238, 0.22);
+  --font: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; height: 100%; overflow: hidden; background: var(--bg); color: var(--ink);
+  font-family: var(--font); touch-action: none;
+  -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent;
+}
+#app { position: fixed; inset: 0; }
+canvas { display: block; touch-action: none; }
+
+#hud {
+  position: fixed; top: 0; left: 0; right: 0; display: flex; justify-content: space-between;
+  align-items: center; padding: 12px 14px; pointer-events: none; z-index: 10;
+}
+#title { font-size: 11px; letter-spacing: 0.16em; color: #fff; text-shadow: 0 0 8px rgba(34, 211, 238, 0.4); }
+#title span { color: var(--cyan); }
+#stats { font-size: 10px; letter-spacing: 0.08em; color: #7fb6c4; text-align: right; line-height: 1.5; }
+#stats b { color: var(--mag); } #stats i { color: var(--cyan); font-style: normal; }
+
+#hint {
+  position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); text-align: center;
+  font-size: 9.5px; letter-spacing: 0.1em; color: #6a98a6; z-index: 10; pointer-events: none; white-space: nowrap;
+}
+#reset {
+  position: fixed; bottom: 16px; right: 14px; z-index: 12; font: inherit; font-size: 9.5px;
+  letter-spacing: 0.1em; color: var(--cyan); background: rgba(9, 14, 22, 0.8); border: 1px solid var(--line);
+  border-radius: 7px; padding: 7px 10px; cursor: pointer; pointer-events: auto; backdrop-filter: blur(8px);
+}
+#reset:hover { border-color: var(--cyan); color: #fff; }
+
+#joy {
+  position: fixed; width: 104px; height: 104px; border-radius: 50%; border: 1.5px solid rgba(34, 211, 238, 0.4);
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.1), rgba(34, 211, 238, 0.02)); z-index: 11; display: none;
+  pointer-events: none; margin: -52px 0 0 -52px; box-shadow: 0 0 24px rgba(34, 211, 238, 0.18);
+}
+#knob {
+  position: fixed; width: 46px; height: 46px; border-radius: 50%; margin: -23px 0 0 -23px; z-index: 11;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.85), rgba(34, 211, 238, 0.35));
+  border: 1px solid rgba(255, 255, 255, 0.55); display: none; pointer-events: none; box-shadow: 0 0 18px rgba(34, 211, 238, 0.5);
+}
+#sprint {
+  position: fixed; right: 26px; bottom: 42px; width: 74px; height: 74px; border-radius: 50%; z-index: 12;
+  border: 1.5px solid rgba(255, 59, 212, 0.45); background: radial-gradient(circle, rgba(255, 59, 212, 0.14), rgba(255, 59, 212, 0.03));
+  color: #ffd9f4; font-size: 9px; letter-spacing: 0.1em; display: none; align-items: center; justify-content: center;
+  pointer-events: auto; cursor: pointer; text-align: center; line-height: 1.3;
+}
+#sprint.active { background: radial-gradient(circle, rgba(255, 59, 212, 0.4), rgba(255, 59, 212, 0.1)); border-color: var(--mag); }
+/* JUMP button (touch) — cyan, to the left of BOOST; hold BOOST first for the forward lunge */
+#jump {
+  position: fixed; right: 112px; bottom: 42px; width: 74px; height: 74px; border-radius: 50%; z-index: 12;
+  border: 1.5px solid rgba(34, 211, 238, 0.5); background: radial-gradient(circle, rgba(34, 211, 238, 0.14), rgba(34, 211, 238, 0.03));
+  color: #cfeffa; font-size: 10px; letter-spacing: 0.1em; display: none; align-items: center; justify-content: center;
+  pointer-events: auto; cursor: pointer; text-align: center; line-height: 1.3; -webkit-user-select: none; user-select: none;
+}
+#jump:active { background: radial-gradient(circle, rgba(34, 211, 238, 0.4), rgba(34, 211, 238, 0.1)); border-color: var(--cyan); }
+
+#panel {
+  position: fixed; left: 10px; top: 62px; z-index: 13; width: 184px; max-height: 74vh; overflow: auto;
+  background: rgba(7, 11, 18, 0.86); border: 1px solid var(--line); border-radius: 9px; backdrop-filter: blur(9px);
+  font-size: 9.5px; letter-spacing: 0.06em; color: #aee3ef; pointer-events: auto;
+}
+#panelHead {
+  padding: 8px 10px; cursor: pointer; color: #fff; letter-spacing: 0.13em; border-bottom: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center;
+}
+#panel.closed #panelBody { display: none; }
+#panelBody { padding: 8px 10px; }
+.sld { margin: 7px 0; }
+.sld label { display: flex; justify-content: space-between; color: #8fc7d4; margin-bottom: 3px; }
+.sld label b { color: var(--mag); font-weight: normal; }
+.sld input { width: 100%; height: 3px; -webkit-appearance: none; appearance: none; background: rgba(34, 211, 238, 0.25); border-radius: 3px; outline: none; }
+.sld input::-webkit-slider-thumb { -webkit-appearance: none; width: 13px; height: 13px; border-radius: 50%; background: var(--cyan); cursor: pointer; box-shadow: 0 0 7px rgba(34, 211, 238, 0.6); }
+.sld input::-moz-range-thumb { width: 13px; height: 13px; border: none; border-radius: 50%; background: var(--cyan); cursor: pointer; }
+
+/* IK SOLVER toggle (A/B switch) — a click-to-toggle pill, kept visually distinct from the sliders */
+.tog {
+  display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+  margin: 2px 0 10px; padding-bottom: 9px; border-bottom: 1px solid var(--line);
+}
+.tog > span { color: #cfe9f0; letter-spacing: 0.12em; }
+.tog b {
+  font-weight: normal; color: var(--mag); padding: 3px 8px; border-radius: 6px;
+  border: 1px solid rgba(255, 59, 212, 0.5); background: rgba(255, 59, 212, 0.08); transition: all 0.15s;
+}
+.tog.on b { color: var(--bg); background: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 8px rgba(34, 211, 238, 0.5); }
+
+#err { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; padding: 30px; color: #ff9bd4; background: #0a0e16; z-index: 99; font-size: 13px; text-align: center; }

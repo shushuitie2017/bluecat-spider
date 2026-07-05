@@ -1,0 +1,27 @@
+{
+  "name": "bluecat-spider",
+  "version": "1.0.0",
+  "description": "纯数学驱动的自稳定程序化蜘蛛，可在任意地形行走、爬墙、起跳：闭式 IK 八足、可弯折的分节身体、能扒住墙壁的跳跃。基于 Three.js。",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "three.js",
+    "procedural-animation",
+    "inverse-kinematics",
+    "spider",
+    "creature",
+    "webgl",
+    "gamedev"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173"
+  },
+  "dependencies": {
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}
