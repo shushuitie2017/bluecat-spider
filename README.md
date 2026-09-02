@@ -89,7 +89,7 @@ pnpm preview    # 本地预览生产构建
 
 一切都是**解析式**——地形是公式、IK 是公式、碰撞是距离函数。没有物理解算器、没有骨骼、没有动画数据。
 
-> IK 解算器面板里可切换 `解析式` ↔ `分解式`：分解式解法（源自 Kiaran Ritchie, 2026）把每条腿拆成“链长”（在肢体静止坐标系里解）与“链向”（绕髋的一次瞄准旋转），落脚点两种解法一致，但**膝弯**变成由基座驱动，像真实的髋关节窝。切一下，盯着膝盖看。
+> IK 解算器面板里可切换 `解析式` ↔ `分解式`：分解式解法把每条腿拆成“链长”（在肢体静止坐标系里解）与“链向”（绕髋的一次瞄准旋转），落脚点两种解法一致，但**膝弯**变成由基座驱动，像真实的髋关节窝。切一下，盯着膝盖看。
 
 ## 👤 关于作者
 
@@ -119,7 +119,7 @@ pnpm preview    # 本地预览生产构建
 
 ## English
 
-**蓝猫蜘蛛 (BlueCat Spider)** is a Chinese adaptation of a self-stabilizing procedural spider you can walk over any terrain — eight legs solved with closed-form inverse kinematics, an improvised gait, and a body that leans into slopes, walls, and overhangs, with **no animation clips, no skeleton rig, and no physics engine.** Just math, every frame. Built with Three.js.
+**蓝猫蜘蛛 (BlueCat Spider)** is a self-stabilizing procedural spider you can walk over any terrain — eight legs solved with closed-form inverse kinematics, an improvised gait, and a body that leans into slopes, walls, and overhangs, with **no animation clips, no skeleton rig, and no physics engine.** Just math, every frame. Built with Three.js.
 
 ```bash
 pnpm install && pnpm dev     # http://localhost:5173
